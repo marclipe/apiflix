@@ -28,6 +28,7 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     background-size: contain;
     -webkit-font-smoothing: antialiased;
     height: 100vh;
+    background-attachment: fixed;
   }
 
   body, input, button, textarea {
