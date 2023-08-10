@@ -3,8 +3,7 @@ import imageLogo from '../../assets/logo.png'
 import { FilmSlate } from "@phosphor-icons/react";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-
-const API_KEY = process.env.REACT_APP_API_KEY;
+import { Loading } from "../Loading/Loading";
 
 interface Movie {
   id: number; 
@@ -14,26 +13,30 @@ interface Movie {
 }
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export function ContainerFlix() {
+
   const [movies, setMovies] = useState<Movie[]>([]);
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
     const fetchPopularMovies = async () => {
       try {
+        setLoading(true);
         const response = await api.get("/movie/popular", {
           params: {
             api_key: API_KEY,
           },
         }); 
         setMovies(response.data.results)
-        console.log(response.data.results)
       } catch (error) {
         console.log('Error fetching movies: ', error)
+      } finally {
+        setLoading(false);
       }
     };
-
     fetchPopularMovies();
   }, []);
 
@@ -59,6 +62,7 @@ export function ContainerFlix() {
         </p>
       </div>
       <ContainerMovie>
+        <Loading loading={loading} />
         {randomMovie && (
           <div className="containerInfoMovies">
             <div>
