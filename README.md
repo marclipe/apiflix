@@ -8,6 +8,8 @@
 
 An interface to search for the most popular movies and stay up to date : )
 
+Deploy on Vercel [ApiFlix](https://apiflix.vercel.app/)
+
 ## Tech Stack
 
 Here are the technologies used in this project.
